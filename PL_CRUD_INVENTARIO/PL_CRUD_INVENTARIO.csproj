@@ -1,0 +1,377 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{07C0B426-B840-48DE-9A5B-FE86423B9A3B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PL_CRUD_INVENTARIO</RootNamespace>
+    <AssemblyName>PL_CRUD_INVENTARIO</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44359</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Base\assets\404.html" />
+    <Content Include="Base\assets\500.html" />
+    <Content Include="Base\assets\blank.html" />
+    <Content Include="Base\assets\buttons.html" />
+    <Content Include="Base\assets\calender.html" />
+    <Content Include="Base\assets\chart.html" />
+    <Content Include="Base\assets\compose.html" />
+    <Content Include="Base\assets\css\atlas.css" />
+    <Content Include="Base\assets\css\bars.css" />
+    <Content Include="Base\assets\css\bootstrap-markdown.min.css" />
+    <Content Include="Base\assets\css\bootstrap.min.css" />
+    <Content Include="Base\assets\css\chocolat.css" />
+    <Content Include="Base\assets\css\clndr.css" />
+    <Content Include="Base\assets\css\fabochart.css" />
+    <Content Include="Base\assets\css\font-awesome.css" />
+    <Content Include="Base\assets\css\icon-font.min.css" />
+    <Content Include="Base\assets\css\jqvmap.css" />
+    <Content Include="Base\assets\css\popuo-box.css" />
+    <Content Include="Base\assets\css\style.css" />
+    <Content Include="Base\assets\css\vroom.css" />
+    <Content Include="Base\assets\editor.html" />
+    <Content Include="Base\assets\fonts\digital-7-webfont.svg" />
+    <Content Include="Base\assets\fonts\digital-7_italic-webfont.svg" />
+    <Content Include="Base\assets\fonts\digital-7_mono-webfont.svg" />
+    <Content Include="Base\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Base\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Base\assets\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="Base\assets\forms.html" />
+    <Content Include="Base\assets\graph.html" />
+    <Content Include="Base\assets\grids.html" />
+    <Content Include="Base\assets\images\1.jpg" />
+    <Content Include="Base\assets\images\1.png" />
+    <Content Include="Base\assets\images\2.png" />
+    <Content Include="Base\assets\images\2222.png" />
+    <Content Include="Base\assets\images\3.png" />
+    <Content Include="Base\assets\images\4.png" />
+    <Content Include="Base\assets\images\5.png" />
+    <Content Include="Base\assets\images\admin.jpg" />
+    <Content Include="Base\assets\images\admin1.jpg" />
+    <Content Include="Base\assets\images\admin2.jpg" />
+    <Content Include="Base\assets\images\alarm.png" />
+    <Content Include="Base\assets\images\business-1031754_640.jpg" />
+    <Content Include="Base\assets\images\clockface.png" />
+    <Content Include="Base\assets\images\closew.gif" />
+    <Content Include="Base\assets\images\cross.png" />
+    <Content Include="Base\assets\images\fb.png" />
+    <Content Include="Base\assets\images\hourhand.png" />
+    <Content Include="Base\assets\images\icons.png" />
+    <Content Include="Base\assets\images\in.jpg" />
+    <Content Include="Base\assets\images\in1.jpg" />
+    <Content Include="Base\assets\images\in10.jpg" />
+    <Content Include="Base\assets\images\in11.jpg" />
+    <Content Include="Base\assets\images\in2.jpg" />
+    <Content Include="Base\assets\images\in3.jpg" />
+    <Content Include="Base\assets\images\in4.jpg" />
+    <Content Include="Base\assets\images\in5.jpg" />
+    <Content Include="Base\assets\images\in6.jpg" />
+    <Content Include="Base\assets\images\in7.jpg" />
+    <Content Include="Base\assets\images\in8.jpg" />
+    <Content Include="Base\assets\images\in9.jpg" />
+    <Content Include="Base\assets\images\leftw.gif" />
+    <Content Include="Base\assets\images\minhand.png" />
+    <Content Include="Base\assets\images\p1.jpg" />
+    <Content Include="Base\assets\images\p2.jpg" />
+    <Content Include="Base\assets\images\p3.jpg" />
+    <Content Include="Base\assets\images\p4.jpg" />
+    <Content Include="Base\assets\images\p5.jpg" />
+    <Content Include="Base\assets\images\p6.jpg" />
+    <Content Include="Base\assets\images\pic3.jpg" />
+    <Content Include="Base\assets\images\rightw.gif" />
+    <Content Include="Base\assets\images\right_arrow.png" />
+    <Content Include="Base\assets\images\search.png" />
+    <Content Include="Base\assets\images\search2.png" />
+    <Content Include="Base\assets\images\sechand.png" />
+    <Content Include="Base\assets\images\social.png" />
+    <Content Include="Base\assets\images\speed.png" />
+    <Content Include="Base\assets\images\tick1.png" />
+    <Content Include="Base\assets\images\time.png" />
+    <Content Include="Base\assets\images\timer.png" />
+    <Content Include="Base\assets\images\tw.png" />
+    <Content Include="Base\assets\images\watch.png" />
+    <Content Include="Base\assets\inbox.html" />
+    <Content Include="Base\assets\index.html" />
+    <Content Include="Base\assets\js\amcharts.js" />
+    <Content Include="Base\assets\js\arbor.js" />
+    <Content Include="Base\assets\js\atlas.js" />
+    <Content Include="Base\assets\js\barChart.jquery.js" />
+    <Content Include="Base\assets\js\bootstrap-markdown.js" />
+    <Content Include="Base\assets\js\bootstrap.min.js" />
+    <Content Include="Base\assets\js\cbpFWTabs.js" />
+    <Content Include="Base\assets\js\Chart-pie.js" />
+    <Content Include="Base\assets\js\Chart.js" />
+    <Content Include="Base\assets\js\clndr.js" />
+    <Content Include="Base\assets\js\css3clock.js" />
+    <Content Include="Base\assets\js\CSSPlugin.min.js" />
+    <Content Include="Base\assets\js\datamaps-all.js" />
+    <Content Include="Base\assets\js\dygraph-combined.js" />
+    <Content Include="Base\assets\js\fabochart.js" />
+    <Content Include="Base\assets\js\jquery-1.10.2.min.js" />
+    <Content Include="Base\assets\js\jquery.chocolat.js" />
+    <Content Include="Base\assets\js\jquery.nicescroll.js" />
+    <Content Include="Base\assets\js\jquery.vmap.js" />
+    <Content Include="Base\assets\js\jquery.vmap.sampledata.js" />
+    <Content Include="Base\assets\js\jquery.vmap.world.js" />
+    <Content Include="Base\assets\js\light.js" />
+    <Content Include="Base\assets\js\map.js" />
+    <Content Include="Base\assets\js\modernizr.custom.04022.js" />
+    <Content Include="Base\assets\js\moment-2.2.1.js" />
+    <Content Include="Base\assets\js\protovis-d3.2.js" />
+    <Content Include="Base\assets\js\radar.js" />
+    <Content Include="Base\assets\js\responsiveslides.min.js" />
+    <Content Include="Base\assets\js\scripts.js" />
+    <Content Include="Base\assets\js\serial.js" />
+    <Content Include="Base\assets\js\site.js" />
+    <Content Include="Base\assets\js\skycons.js" />
+    <Content Include="Base\assets\js\TweenLite.min.js" />
+    <Content Include="Base\assets\js\underscore-min.js" />
+    <Content Include="Base\assets\js\vix.js" />
+    <Content Include="Base\assets\js\vroom.js" />
+    <Content Include="Base\assets\login.html" />
+    <Content Include="Base\assets\map.html" />
+    <Content Include="Base\assets\media.html" />
+    <Content Include="Base\assets\profile.html" />
+    <Content Include="Base\assets\project.html" />
+    <Content Include="Base\assets\register.html" />
+    <Content Include="Base\assets\ribbon.html" />
+    <Content Include="Base\assets\sign.html" />
+    <Content Include="Base\assets\table.html" />
+    <Content Include="Base\assets\tabs.html" />
+    <Content Include="Base\assets\typography.html" />
+    <Content Include="Base\assets\validation.html" />
+    <Content Include="Base\assets\widget.html" />
+    <Content Include="Global.asax" />
+    <Content Include="JavaScript\Auditoria.js" />
+    <Content Include="JavaScript\InicioSesion.js" />
+    <Content Include="JavaScript\ModulosXUsuario.js" />
+    <Content Include="JavaScript\Proveedores.js" />
+    <Content Include="JavaScript\Usuarios.js" />
+    <Content Include="Login\frmInicioSesion.aspx" />
+    <Content Include="Mantenimientos\frmConsultaAuditoria.aspx" />
+    <Content Include="Mantenimientos\frmConsultaProveedores.aspx" />
+    <Content Include="Mantenimientos\frmConsultaUsuarios.aspx" />
+    <Content Include="Mantenimientos\frmMantenimientoModulosXUsuario.aspx" />
+    <Content Include="Mantenimientos\frmMantenimientoProveedores.aspx" />
+    <Content Include="Mantenimientos\frmMantenimientoUsuarios.aspx" />
+    <Content Include="Mantenimientos\frmPrincipal.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login\frmInicioSesion.aspx.cs">
+      <DependentUpon>frmInicioSesion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login\frmInicioSesion.aspx.designer.cs">
+      <DependentUpon>frmInicioSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmConsultaAuditoria.aspx.cs">
+      <DependentUpon>frmConsultaAuditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmConsultaAuditoria.aspx.designer.cs">
+      <DependentUpon>frmConsultaAuditoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmConsultaProveedores.aspx.cs">
+      <DependentUpon>frmConsultaProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmConsultaProveedores.aspx.designer.cs">
+      <DependentUpon>frmConsultaProveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmConsultaUsuarios.aspx.cs">
+      <DependentUpon>frmConsultaUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmConsultaUsuarios.aspx.designer.cs">
+      <DependentUpon>frmConsultaUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmMantenimientoModulosXUsuario.aspx.cs">
+      <DependentUpon>frmMantenimientoModulosXUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmMantenimientoModulosXUsuario.aspx.designer.cs">
+      <DependentUpon>frmMantenimientoModulosXUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmMantenimientoProveedores.aspx.cs">
+      <DependentUpon>frmMantenimientoProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmMantenimientoProveedores.aspx.designer.cs">
+      <DependentUpon>frmMantenimientoProveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmMantenimientoUsuarios.aspx.cs">
+      <DependentUpon>frmMantenimientoUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmMantenimientoUsuarios.aspx.designer.cs">
+      <DependentUpon>frmMantenimientoUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmPrincipal.aspx.cs">
+      <DependentUpon>frmPrincipal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmPrincipal.aspx.designer.cs">
+      <DependentUpon>frmPrincipal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimientos\frmPrincipalMaster.Master.cs">
+      <DependentUpon>frmPrincipalMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\frmPrincipalMaster.Master.designer.cs">
+      <DependentUpon>frmPrincipalMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JavaScript\jquery.cookie.js" />
+    <Content Include="Base\assets\fonts\digital-7-webfont.eot" />
+    <Content Include="Base\assets\fonts\digital-7-webfont.ttf" />
+    <Content Include="Base\assets\fonts\digital-7-webfont.woff" />
+    <Content Include="Base\assets\fonts\digital-7_italic-webfont.eot" />
+    <Content Include="Base\assets\fonts\digital-7_italic-webfont.ttf" />
+    <Content Include="Base\assets\fonts\digital-7_italic-webfont.woff" />
+    <Content Include="Base\assets\fonts\digital-7_mono-webfont.eot" />
+    <Content Include="Base\assets\fonts\digital-7_mono-webfont.ttf" />
+    <Content Include="Base\assets\fonts\digital-7_mono-webfont.woff" />
+    <Content Include="Base\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Base\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Base\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Base\assets\fonts\FontAwesome.otf" />
+    <Content Include="Base\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Base\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Base\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Base\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Base\assets\fonts\weathericons-regular-webfont.eot" />
+    <Content Include="Base\assets\fonts\weathericons-regular-webfont.ttf" />
+    <Content Include="Base\assets\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="Base\assets\maps\africa.json" />
+    <Content Include="Base\assets\maps\america.json" />
+    <Content Include="Base\assets\maps\asia.json" />
+    <Content Include="Base\assets\maps\europe.json" />
+    <Content Include="Base\assets\maps\mideast.json" />
+    <Content Include="Base\assets\maps\risk.json" />
+    <Content Include="Base\assets\maps\usofa.json" />
+    <Content Include="Mantenimientos\frmPrincipalMaster.Master" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL_CRUD_INVENTARIO\BLL_CRUD_INVENTARIO.csproj">
+      <Project>{3a8078ea-d378-4abd-8ca8-258541a5a6f9}</Project>
+      <Name>BLL_CRUD_INVENTARIO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL_CRUD_INVENTARIO\DAL_CRUD_INVENTARIO.csproj">
+      <Project>{5d14078b-1bba-4d99-9917-43b1eacbb7cb}</Project>
+      <Name>DAL_CRUD_INVENTARIO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51530</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44359/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

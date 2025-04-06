@@ -1,0 +1,1023 @@
+USE [master]
+GO
+/****** Object:  Database [CRUD_INVENTARIO]    Script Date: 4/6/2025 7:45:16 AM ******/
+CREATE DATABASE [CRUD_INVENTARIO]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'CRUD_INVENTARIO', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CRUD_INVENTARIO.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'CRUD_INVENTARIO_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CRUD_INVENTARIO_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [CRUD_INVENTARIO].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET RECOVERY FULL 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET  MULTI_USER 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'CRUD_INVENTARIO', N'ON'
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [CRUD_INVENTARIO]
+GO
+/****** Object:  Table [dbo].[Auditoria]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Auditoria](
+	[Id_Auditoria] [int] IDENTITY(1,1) NOT NULL,
+	[Id_Usuario] [int] NOT NULL,
+	[Accion] [char](1) NOT NULL,
+	[Descripción] [nvarchar](500) NOT NULL,
+	[Fecha] [datetime] NOT NULL,
+ CONSTRAINT [PK_Auditoria] PRIMARY KEY CLUSTERED 
+(
+	[Id_Auditoria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Modulos]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Modulos](
+	[Id_Modulo] [int] IDENTITY(1,1) NOT NULL,
+	[Modulo] [nvarchar](50) NOT NULL,
+	[ClaseCSS] [varchar](100) NULL,
+	[Enlace] [varchar](100) NULL,
+ CONSTRAINT [PK_Modulos] PRIMARY KEY CLUSTERED 
+(
+	[Id_Modulo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Modulos_X_Usuario]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Modulos_X_Usuario](
+	[Id_Modulo_Usuario] [int] IDENTITY(1,1) NOT NULL,
+	[Id_Usuario] [int] NOT NULL,
+	[Id_Modulo] [int] NOT NULL,
+ CONSTRAINT [PK_Modulos_X_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[Id_Modulo_Usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Proveedores](
+	[Id_Proveedor] [int] IDENTITY(1,1) NOT NULL,
+	[Proveedor] [nvarchar](50) NOT NULL,
+	[Contacto] [nvarchar](50) NOT NULL,
+	[Telefono] [nvarchar](8) NOT NULL,
+	[Correo] [nvarchar](50) NOT NULL,
+	[Direccion] [nvarchar](500) NOT NULL,
+	[Estado] [char](1) NOT NULL,
+ CONSTRAINT [PK_Proveedores] PRIMARY KEY CLUSTERED 
+(
+	[Id_Proveedor] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuarios](
+	[Id_Usuario] [int] IDENTITY(1,1) NOT NULL,
+	[Correo] [nvarchar](50) NOT NULL,
+	[Nombre] [nvarchar](50) NOT NULL,
+	[Prim_Apellido] [nvarchar](50) NOT NULL,
+	[Seg_Apellido] [nvarchar](50) NOT NULL,
+	[Estado] [char](1) NOT NULL,
+	[Password] [nvarchar](25) NOT NULL,
+ CONSTRAINT [PK_Usuarios] PRIMARY KEY CLUSTERED 
+(
+	[Id_Usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Modulos] ADD  DEFAULT ('') FOR [ClaseCSS]
+GO
+ALTER TABLE [dbo].[Modulos] ADD  DEFAULT ('') FOR [Enlace]
+GO
+ALTER TABLE [dbo].[Auditoria]  WITH CHECK ADD  CONSTRAINT [FK_Auditoria_Usuarios] FOREIGN KEY([Id_Usuario])
+REFERENCES [dbo].[Usuarios] ([Id_Usuario])
+GO
+ALTER TABLE [dbo].[Auditoria] CHECK CONSTRAINT [FK_Auditoria_Usuarios]
+GO
+ALTER TABLE [dbo].[Modulos_X_Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Modulos_X_Usuario_Modulos] FOREIGN KEY([Id_Modulo])
+REFERENCES [dbo].[Modulos] ([Id_Modulo])
+GO
+ALTER TABLE [dbo].[Modulos_X_Usuario] CHECK CONSTRAINT [FK_Modulos_X_Usuario_Modulos]
+GO
+ALTER TABLE [dbo].[Modulos_X_Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Modulos_X_Usuario_Usuarios] FOREIGN KEY([Id_Usuario])
+REFERENCES [dbo].[Usuarios] ([Id_Usuario])
+GO
+ALTER TABLE [dbo].[Modulos_X_Usuario] CHECK CONSTRAINT [FK_Modulos_X_Usuario_Usuarios]
+GO
+/****** Object:  StoredProcedure [dbo].[USP_CierraSesion_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_CierraSesion_Usuarios]
+(
+@IdUsuario INT
+)
+AS BEGIN 
+DECLARE @Estado char(1)
+BEGIN TRY
+
+	IF EXISTS(SELECT Id_Usuario FROM Usuarios WHERE Id_Usuario=@IdUsuario) 
+	BEGIN
+			SELECT @IdUsuario
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @USRNOM VARCHAR(300)
+			DECLARE @ACC CHAR(1)
+
+			SELECT @USRNOM = Nombre + ' ' + Prim_Apellido + ' ' + Seg_Apellido FROM Usuarios Where Id_Usuario=@IdUsuario
+			SET @DSC = 'Cierra de Sesión del Usuario: ' + CONVERT(VARCHAR,@USRNOM)
+			SET @ACC = 'I'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+	END
+	ELSE
+	BEGIN
+		SELECT 0
+	END
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Eliminar_ModulosXUsuario]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Eliminar_ModulosXUsuario]
+(
+@IdModuloUsuario int,
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+
+					-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			DECLARE @MODULO VARCHAR(50)
+			DECLARE @USUARIO VARCHAR(250)
+
+			SELECT @MODULO=Modulo 
+			FROM Modulos MDD
+			INNER JOIN Modulos_X_Usuario MXU ON MXU.Id_Modulo=MDD.Id_Modulo
+			WHERE Id_Modulo_Usuario=@IdModuloUsuario
+			
+			
+			SELECT @USUARIO= RTRIM(LTRIM(Nombre)) + ' ' + RTRIM(LTRIM(Prim_Apellido)) + ' ' +  RTRIM(LTRIM(Seg_Apellido)) 
+			FROM Usuarios USR
+			INNER JOIN Modulos_X_Usuario MXU ON MXU.Id_Usuario=USR.Id_Usuario
+			WHERE Id_Modulo_Usuario=@IdModuloUsuario
+
+			SET @DSC = 'Elimina el módulo ' + RTRIM(LTRIM(@MODULO)) + ' al Usuario ' + RTRIM(LTRIM(@USUARIO)) +  '. Id Registro: ' + CONVERT(VARCHAR,@IdModuloUsuario)
+			SET @ACC = 'E'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+
+		DELETE FROM Modulos_X_Usuario WHERE Id_Modulo_Usuario=@IdModuloUsuario
+		SELECT @IdModuloUsuario
+	
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Eliminar_Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[USP_Eliminar_Proveedores]
+(
+@IdProveedor int,
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+	IF (
+		NOT EXISTS(SELECT Id_Proveedor FROM Proveedores WHERE Id_Proveedor=8989898989898989898)
+		)
+	BEGIN
+
+				-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @PROVEEDOR VARCHAR(50)
+			DECLARE @ACC CHAR(1)
+
+			SELECT @PROVEEDOR=RTRIM(LTRIM(Proveedor)) FROM Proveedores
+			WHERE Id_Proveedor=@IdProveedor
+
+			SET @DSC = 'Elimina la información del Proveedor ' + RTRIM(LTRIM(@PROVEEDOR)) + '. Id Registro: ' + CONVERT(VARCHAR,@IdProveedor)
+			SET @ACC = 'E'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+
+
+		DELETE FROM Proveedores
+		WHERE Id_Proveedor=@IdProveedor
+
+		SELECT @IdProveedor
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Eliminar_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Eliminar_Usuarios]
+(
+@IdUsuario int,
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+	IF (NOT EXISTS(SELECT Id_Auditoria FROM Auditoria WHERE Id_Usuario=@IdUsuario)
+		AND NOT EXISTS (SELECT Id_Modulo_Usuario FROM Modulos_X_Usuario WHERE Id_Usuario=@IdUsuario) 
+		)
+	BEGIN
+
+				-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @USUARIO VARCHAR(250)
+			DECLARE @ACC CHAR(1)
+
+			SELECT @USUARIO=RTRIM(LTRIM(Nombre)) + ' ' + RTRIM(LTRIM(Prim_Apellido)) + ' ' +  RTRIM(LTRIM(Seg_Apellido))FROM Usuarios
+			WHERE Id_Usuario=@IdUsuario
+
+			SET @DSC = 'Elimina la información del Usuario ' + RTRIM(LTRIM(@USUARIO)) + '. Id Registro: ' + CONVERT(VARCHAR,@IdUsuario)
+			SET @ACC = 'E'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+
+
+		DELETE FROM Usuarios
+		WHERE Id_Usuario=@IdUsuario
+
+		SELECT @IdUsuario
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Filtrar_Auditoria]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+----PROCEDIMIENTOS CRUD AUDITORIA
+CREATE PROCEDURE [dbo].[USP_Filtrar_Auditoria]
+(
+@Usuario int,
+@Accion nvarchar(10),
+@Desde DATETIME,
+@Hasta DATETIME
+)
+AS BEGIN 
+SET DATEFORMAT DMY
+SELECT 
+	   [Fecha] as [Fecha / Hora]
+      ,CASE LTRIM(RTRIM([Accion])) WHEN 'A' THEN 'Actualizar' WHEN 'E' THEN 'Eliminar' WHEN 'I' THEN 'Insertar' ELSE 'N/A' END [Accion]
+      ,[Descripción]
+      
+  FROM [dbo].[Auditoria]
+  WHERE Id_Usuario=@Usuario 
+		AND 
+			(
+				CAST(Fecha as DATE)>=CAST(@Desde AS DATE) 
+					AND 
+				CAST(Fecha as DATE)<=CAST(@Hasta AS DATE) 
+			 )
+		AND Accion = CASE LTRIM(RTRIM(@Accion)) WHEN 'T' THEN Accion ELSE @Accion END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Filtrar_Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[USP_Filtrar_Proveedores]
+(
+@Proveedor nvarchar(50),
+@Contacto nvarchar(50),
+@Estado nvarchar(10)
+)
+AS BEGIN 
+
+SELECT  [Id_Proveedor]
+      , [Proveedor]
+	  , [Contacto]
+	  , [Telefono]
+	  , [Correo]
+	  , CASE LTRIM(RTRIM([Estado])) WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END [Estado]
+  FROM [dbo].[Proveedores]
+  WHERE LTRIM(RTRIM(Proveedor))  LIKE '%' + LTRIM(RTRIM(@Proveedor)) +'%'
+		AND Estado = @Estado AND TRIM(RTRIM(Contacto))  LIKE '%' + LTRIM(RTRIM(@Contacto)) +'%'
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Filtrar_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Filtrar_Usuarios]
+(
+@Correo nvarchar(50),
+@Nombre nvarchar(150),
+@Estado nvarchar(10)
+)
+AS BEGIN 
+
+SELECT [Id_Usuario]
+      ,[Correo]
+      ,[Nombre] + ' ' + [Prim_Apellido] + ' ' + [Seg_Apellido] [Nombre]
+      ,CASE LTRIM(RTRIM([Estado])) WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END [Estado]
+  FROM [dbo].[Usuarios]
+  WHERE LTRIM(RTRIM([Nombre]))+' '+LTRIM(RTRIM([Prim_Apellido]))+' '+LTRIM(RTRIM([Seg_Apellido])) LIKE '%' + LTRIM(RTRIM(@Nombre)) +'%'
+		AND LTRIM(RTRIM([Correo])) LIKE '%' +  LTRIM(RTRIM(@Correo)) +'%'
+		AND Estado = CASE LTRIM(RTRIM(@Estado)) WHEN '' THEN Estado WHEN 'Activo' THEN 'A' ELSE 'I' END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Habilita_ModulosXUsuario]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+----PROCEDIMIENTOS CRUD USUARIOS_X_USUARIOS
+CREATE PROCEDURE [dbo].[USP_Habilita_ModulosXUsuario]
+(
+@IdUsuario int
+)
+AS BEGIN
+	SELECT 
+	MDD.ID_MODULO AS ID_REAL, MDD.MODULO AS MODULO, CASE ISNULL(MXU.Id_Modulo,0) WHEN 0 THEN 'N' ELSE 'S' END AS ASIGNADO
+	FROM MODULOS MDD
+	LEFT JOIN Modulos_X_Usuario MXU ON MDD.Id_Modulo=MXU.Id_Modulo AND MXU.Id_Usuario=@IdUsuario
+	ORDER BY ID_REAL
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Informacion_Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[USP_Informacion_Proveedores]
+(
+@IdProveedor INT
+)
+AS BEGIN 
+SELECT  [Id_Proveedor]
+      , [Proveedor]
+	  , [Contacto]
+	  , [Telefono]
+	  , [Correo]
+	,[Direccion],
+	[Estado]
+  FROM [dbo].[Proveedores] 
+  WHERE [Id_Proveedor]=@IdProveedor
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Informacion_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Informacion_Usuarios]
+(
+@IdUsuario INT
+)
+AS BEGIN 
+
+SELECT [Id_Usuario]
+      ,[Nombre]
+	  ,[Prim_Apellido]
+	  ,[Seg_Apellido] 
+	  ,[Correo]
+	  ,CASE LTRIM(RTRIM([Estado])) WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END [Estado]
+	  ,[Password]
+  FROM [dbo].[Usuarios]
+  WHERE [Id_Usuario]=@IdUsuario
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_InicioSesion_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+----PROCEDIMIENTOS CRUD INICIO SESION
+CREATE PROCEDURE [dbo].[USP_InicioSesion_Usuarios]
+(
+@Correo varchar(50),
+@Password varchar(25)
+)
+AS BEGIN 
+DECLARE @IdUsuario int
+DECLARE @Estado char(1)
+BEGIN TRY
+
+	IF EXISTS(SELECT Id_Usuario FROM Usuarios WHERE Correo=@Correo and Password=@Password) 
+	BEGIN
+		SELECT @IdUsuario=Id_Usuario, @Estado=Estado FROM Usuarios WHERE Correo=@Correo and Password=@Password
+
+		IF @Estado='A'
+		BEGIN
+			SELECT @IdUsuario
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @USRNOM VARCHAR(300)
+			DECLARE @ACC CHAR(1)
+
+			SELECT @USRNOM = Nombre + ' ' + Prim_Apellido + ' ' + Seg_Apellido FROM Usuarios Where Id_Usuario=@IdUsuario
+			SET @DSC = 'Inicio de Sesión del Usuario: ' + CONVERT(VARCHAR,@USRNOM)
+			SET @ACC = 'I'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+		END
+		ELSE
+		BEGIN
+			SELECT -1
+		END
+	END
+	ELSE
+	BEGIN
+		SELECT 0
+	END
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Insertar_ModulosXUsuario]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Insertar_ModulosXUsuario]
+(
+@IdModulo int,
+@IdUsuario int,
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+	IF NOT EXISTS(SELECT Id_Modulo_Usuario FROM Modulos_X_Usuario WHERE Id_Usuario=@IdUsuario AND Id_Modulo=@IdModulo)
+	BEGIN 
+		INSERT INTO  [dbo].[Modulos_X_Usuario]
+		(
+			   Id_Usuario
+			  ,Id_Modulo
+		)
+		VALUES
+		(
+			@IdUsuario,
+			@IdModulo
+		)
+		SELECT @@IDENTITY
+
+
+					-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			DECLARE @MODULO VARCHAR(50)
+			DECLARE @USUARIO VARCHAR(250)
+
+			SELECT @MODULO=Modulo FROM Modulos WHERE Id_Modulo=@IdModulo
+			SELECT @USUARIO= RTRIM(LTRIM(Nombre)) + ' ' + RTRIM(LTRIM(Prim_Apellido)) + ' ' +  RTRIM(LTRIM(Seg_Apellido)) FROM Usuarios WHERE Id_Usuario=@IdUsuario
+
+			SET @DSC = 'Asigna el módulo ' + RTRIM(LTRIM(@MODULO)) + ' al Usuario ' + RTRIM(LTRIM(@USUARIO)) +  '. Id Registro: ' + CONVERT(VARCHAR,@@IDENTITY)
+			SET @ACC = 'I'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+	
+END TRY
+BEGIN CATCH
+		SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Insertar_Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[USP_Insertar_Proveedores]
+(
+@Proveedor nvarchar(50),
+@Contacto nvarchar(50),
+@Telefono nvarchar(8),
+@Correo nvarchar(50),
+@Direccion nvarchar(500),
+@Estado char(1),
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+SET DATEFORMAT DMY
+	IF NOT EXISTS(SELECT Id_Proveedor FROM Proveedores WHERE Proveedor=@Proveedor)
+	BEGIN 
+		INSERT INTO  [dbo].[Proveedores]
+		(
+			[Proveedor],
+			[Contacto],
+			[Telefono],
+			[Correo],
+			[Direccion],
+			[Estado]
+		)
+		VALUES
+		(
+			@Proveedor,
+			@Contacto,
+			@Telefono,
+			@Correo,
+			@Direccion,
+			@Estado
+		)
+		SELECT @@IDENTITY
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			SET @DSC = 'Incluye la información del Proveedor ' + RTRIM(LTRIM(@Proveedor)) + '. Id Registro: ' + CONVERT(VARCHAR,@@IDENTITY)
+			SET @ACC = 'I'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+	
+END TRY
+BEGIN CATCH
+		SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Insertar_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Insertar_Usuarios]
+(
+@Nombre varchar(50),
+@Prim_Apellido varchar(50),
+@Seg_Apellido varchar(50),
+@Correo varchar(50),
+@Estado varchar(10),
+@Password varchar(25),
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+	IF NOT EXISTS(SELECT Id_Usuario FROM USUARIOS WHERE Correo=@Correo)
+	BEGIN 
+		INSERT INTO  [dbo].[Usuarios]
+		(
+			   [Nombre]
+			  ,[Prim_Apellido]
+			  ,[Seg_Apellido] 
+			  ,[Estado]
+			  ,[Correo]
+			  ,[Password]
+		)
+		VALUES
+		(
+			@Nombre,
+			@Prim_Apellido,
+			@Seg_Apellido,
+			CASE LTRIM(RTRIM(@Estado)) WHEN 'Activo' THEN 'A' ELSE 'I' END,
+			@Correo,
+			@Password
+		)
+		SELECT @@IDENTITY
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			SET @DSC = 'Incluye la información del Usuario ' + RTRIM(LTRIM(@Nombre)) + ' ' + RTRIM(LTRIM(@Prim_Apellido)) + ' ' +  RTRIM(LTRIM(@Seg_Apellido)) + '. Id Registro: ' + CONVERT(VARCHAR,@@IDENTITY)
+			SET @ACC = 'I'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+	
+END TRY
+BEGIN CATCH
+		SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Listar_Modulos]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+----PROCEDIMIENTOS CRUD MODULOS 
+CREATE PROCEDURE [dbo].[USP_Listar_Modulos]
+AS BEGIN
+
+SELECT [Id_Modulo]
+      ,[Modulo]
+  FROM [dbo].[Modulos]
+  ORDER BY Id_Modulo
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Listar_ModulosXUsuario]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+	
+CREATE PROCEDURE [dbo].[USP_Listar_ModulosXUsuario]
+(
+@IdUsuario int
+)
+AS BEGIN
+ SELECT 0 [Id_Modulo_Usuario],
+	    'Panel de Control' [Modulo],
+		'fa fa-tachometer' [ClaseCss],
+		'frmPanel.aspx' [Enlace],
+		0 AS MODL
+ UNION
+ SELECT [Id_Modulo_Usuario]
+      ,[Modulo]
+	  ,[ClaseCss]
+	  ,[Enlace]
+	  ,MDS.Id_Modulo AS MODL
+  FROM [dbo].[Modulos_X_Usuario] MXU
+  INNER JOIN Modulos MDS ON MDS.Id_Modulo=MXU.Id_Modulo
+  WHERE Id_Usuario=@IdUsuario
+  ORDER BY (4) ASC
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Listar_Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[USP_Listar_Proveedores]
+AS BEGIN
+SELECT  [Id_Proveedor]
+      , [Proveedor]
+	  , [Contacto]
+	  , [Telefono]
+	  , [Correo]
+	  , CASE LTRIM(RTRIM([Estado])) WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END [Estado]
+  FROM [dbo].[Proveedores]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Listar_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+----PROCEDIMIENTOS CRUD USUARIOS
+
+CREATE PROCEDURE [dbo].[USP_Listar_Usuarios]
+AS BEGIN 
+
+SELECT [Id_Usuario]
+      ,[Correo]
+      ,[Nombre] + ' ' + [Prim_Apellido] + ' ' + [Seg_Apellido] [Nombre]
+      ,CASE LTRIM(RTRIM([Estado])) WHEN 'A' THEN 'Activo' ELSE 'Inactivo' END [Estado]
+  FROM [dbo].[Usuarios]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Modificar_Proveedores]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[USP_Modificar_Proveedores]
+(
+@IdProveedor int,
+@Proveedor nvarchar(50),
+@Contacto nvarchar(50),
+@Telefono nvarchar(8),
+@Correo nvarchar(50),
+@Direccion nvarchar(500),
+@Estado char(1),
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+SET DATEFORMAT DMY
+	IF NOT EXISTS(SELECT Id_Proveedor FROM Proveedores WHERE Proveedor=@Proveedor and Id_Proveedor not in(@IdProveedor)) 
+	BEGIN
+
+		UPDATE [dbo].[Proveedores]
+		SET
+			   [Proveedor]=@Proveedor,
+			   [Contacto]=@Contacto,
+			   [Telefono]=@Telefono,
+			   [Correo]=@Correo,
+			   [Direccion]=@Direccion,
+			   [Estado]=@Estado
+		WHERE Id_Proveedor=@IdProveedor
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			SET @DSC = 'Actualiza la información del Fabricante ' + RTRIM(LTRIM(@Proveedor)) +  '. Id Registro: ' + CONVERT(VARCHAR,@IdProveedor)
+			SET @ACC = 'A'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+		SELECT @IdProveedor
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_Modificar_Usuarios]    Script Date: 4/6/2025 7:45:16 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[USP_Modificar_Usuarios]
+(
+@IdUsuario int,
+@Nombre varchar(50),
+@Prim_Apellido varchar(50),
+@Seg_Apellido varchar(50),
+@Correo varchar(50),
+@Estado varchar(10),
+@Password varchar(25),
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+	IF NOT EXISTS(SELECT Id_Usuario FROM Usuarios WHERE Correo=@Correo and Id_Usuario not in(@IdUsuario)) 
+	BEGIN
+		UPDATE [dbo].[Usuarios]
+		SET
+			   [Nombre]=@Nombre
+			  ,[Prim_Apellido]=@Prim_Apellido
+			  ,[Seg_Apellido] =@Seg_Apellido
+			  ,[Estado]=CASE LTRIM(RTRIM(@Estado)) WHEN 'Activo' THEN 'A' ELSE 'I' END
+			  ,[Password]=@Password
+			  ,[Correo]=@Correo
+		WHERE Id_Usuario=@IdUsuario
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			SET @DSC = 'Actualiza la información del Usuario ' + RTRIM(LTRIM(@Nombre)) + ' ' + RTRIM(LTRIM(@Prim_Apellido)) + ' ' +  RTRIM(LTRIM(@Seg_Apellido)) +  '. Id Registro: ' + CONVERT(VARCHAR,@IdUsuario)
+			SET @ACC = 'A'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+		SELECT @IdUsuario
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+END TRY 
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador único de registro de auditoría' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Auditoria', @level2type=N'COLUMN',@level2name=N'Id_Auditoria'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador de Usuario' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Auditoria', @level2type=N'COLUMN',@level2name=N'Id_Usuario'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Acción realizada (A: Actualizar , E: Eliminar , I: Insertar)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Auditoria', @level2type=N'COLUMN',@level2name=N'Accion'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Descripción de la acción realizada' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Auditoria', @level2type=N'COLUMN',@level2name=N'Descripción'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Fecha y Hora de la acción realizada' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Auditoria', @level2type=N'COLUMN',@level2name=N'Fecha'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador único de Módulo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Modulos', @level2type=N'COLUMN',@level2name=N'Id_Modulo'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Descripción de Módulo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Modulos', @level2type=N'COLUMN',@level2name=N'Modulo'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador de módulos x Usuario' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Modulos_X_Usuario', @level2type=N'COLUMN',@level2name=N'Id_Modulo_Usuario'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador de Usuario' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Modulos_X_Usuario', @level2type=N'COLUMN',@level2name=N'Id_Usuario'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador de Modulo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Modulos_X_Usuario', @level2type=N'COLUMN',@level2name=N'Id_Modulo'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identificador único de usuario' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Id_Usuario'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Correo electrónico' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Correo'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Nombre de usuario' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Nombre'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Primer Apellido ' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Prim_Apellido'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Segundo apellido' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Seg_Apellido'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Estado (A: activo , I: inactivo)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Estado'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Password de usuario' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Usuarios', @level2type=N'COLUMN',@level2name=N'Password'
+GO
+USE [master]
+GO
+ALTER DATABASE [CRUD_INVENTARIO] SET  READ_WRITE 
+GO

@@ -1,64 +1,65 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="frmInicioSesion.aspx.cs" Inherits="PL_CRUD_INVENTARIO.Login.frmInicioSesion" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-    <title>Sistema CRUD Hotel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- Bootstrap Core CSS -->
-    <link href="../Base/assets/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-    <!-- Custom CSS -->
-    <link href="../Base/assets/css/style.css" rel='stylesheet' type='text/css' />
-    <!-- Graph CSS -->
-    <link href="../Base/assets/css/font-awesome.css" rel="stylesheet">
-    <!-- jQuery -->
-    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'>
-    <!-- lined-icons -->
-    <link rel="stylesheet" href="../Base/assets/css/icon-font.min.css" type='text/css' />
-    <!-- //lined-icons -->
-    <script src="../Base/assets/js/jquery-1.10.2.min.js"></script>
-    <!--clock init-->
+<head runat="server">
+  <title>Inicio de Sesión</title>
+  <link href="css/login-nuevo.css" rel="stylesheet" />
 </head>
-
 <body>
-    <!--/login-->
-
-    <div class="error_page">
-        <!--/login-top-->
-
-        <div class="error-top">
-            <h2 class="inner-tittle page">SISTEMA HOTEL</h2>
-            <div class="login">
-                <h3 class="inner-tittle t-inner">BIENVENIDO</h3>
-                <form action="javascript: inicioSesion()" method="post">
-                    <input type="text" id="txtUsuario" class="text" value="Correo Electronico" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Correo Electronico';}">
-                    <input type="password" id="txtPassword" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-                    <div class="submit">
-                        <input type="submit" value="Iniciar Sesion"></div>
-                </form>
-            </div>
-
+  <form id="form1" runat="server">
+    <div class="page">
+      <div class="container">
+        <div class="left">
+          <div class="login">Inicio de Sesión</div>
+          <div class="eula">Al iniciar sesión, aceptas los términos de uso.</div>
         </div>
-        <!--//login-top-->
-    </div>
+        <div class="right">
+          <svg viewBox="0 0 320 300">
+            <defs>
+              <linearGradient id="linearGradient" x1="13" y1="193.5" x2="307" y2="193.5" gradientUnits="userSpaceOnUse">
+                <stop style="stop-color:#ff00ff;" offset="0" />
+                <stop style="stop-color:#ff0000;" offset="1" />
+              </linearGradient>
+            </defs>
+            <path id="animPath"
+              d="m 40,120 
+                 240,0 
+                 c 0,0 25,1 25,35 
+                 0,34 -25,35 -25,35 
+                 h -240 
+                 c 0,0 -25,4 -25,38.5 
+                 0,34.5 25,38.5 25,38.5 
+                 h 215 
+                 c 0,0 20,-1 20,-25 
+                 0,-24 -20,-25 -20,-25 
+                 h -190 
+                 c 0,0 -20,2 -20,25 
+                 0,24 20,25 20,25 
+                 h 168.57"
+              style="stroke-dashoffset: 1000; stroke-dasharray: 240 1386;" />
+          </svg>
 
-    <!--//login-->
-    <!--footer section start-->
-    <div class="footer">
-        <p>&copy 2016 Augment . All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">W3layouts.</a></p>
+          <div class="form">
+            <label for="txtUsuario">Email</label>
+            <input type="email" id="txtUsuario" />
+
+            <label for="txtPassword">Password</label>
+            <input type="password" id="txtPassword" />
+
+            <input type="button" id="submit" value="Iniciar Sesión" onclick="inicioSesion();" />
+          </div>
+        </div>
+      </div>
     </div>
-    <!--footer section end-->
-    <!--/404-->
-    <!--js -->
-    <script src="../Base/assets/js/jquery.nicescroll.js"></script>
-    <script src="../Base/assets/js/scripts.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../Base/assets/js/bootstrap.min.js"></script>
-    <script src="../javascript/InicioSesion.js"></script>
-    <script src="../javascript/jquery.cookie.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </form>
+
+  <!-- Scripts -->
+  <script src="js/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="js/login-animacion.js"></script>
+  <script src="../JavaScript/jquery.cookie.js"></script>
+  <script src="../JavaScript/InicioSesion.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
 </html>

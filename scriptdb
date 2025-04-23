@@ -1021,3 +1021,224 @@ USE [master]
 GO
 ALTER DATABASE [CRUD_INVENTARIO] SET  READ_WRITE 
 GO
+use  CRUD_INVENTARIO
+--Tabla productos para inventario
+
+CREATE TABLE [dbo].[Articulos](
+	[Id_Articulo] [int] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [nvarchar](50) NOT NULL,
+	[Estado] [char](1) NOT NULL,
+	[Existencias] [int] NOT NULL,
+	[Precio] [decimal](10,2) NOT NULL,
+	[Id_Proveedor] [int] NOT NULL, 
+ CONSTRAINT [PK_Articulos] PRIMARY KEY CLUSTERED 
+(
+	[Id_Articulo] ASC
+
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Articulos]  
+WITH CHECK ADD CONSTRAINT [FK_Articulos_Proveedores] 
+FOREIGN KEY([Id_Proveedor])
+REFERENCES [dbo].[Proveedores] ([Id_Proveedor])
+GO
+
+CREATE PROCEDURE [dbo].[USP_Insertar_Articulos]
+(
+@Descripcion nvarchar(50),
+@Estado char(1),
+@Existencias int,
+@Precio decimal(10,2),
+@Id_Proveedor int,
+@IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+SET DATEFORMAT DMY
+	IF NOT EXISTS(
+    SELECT 1 FROM Articulos 
+    WHERE Descripcion = @Descripcion AND Id_Proveedor = @Id_Proveedor
+)
+	BEGIN 
+		INSERT INTO  [dbo].[Articulos]
+		(
+			[Descripcion],
+			[Estado],
+			[Existencias],
+			[Precio],
+			[Id_Proveedor]
+			
+		)
+		VALUES
+		(
+			@Descripcion,
+			@Estado,
+			@Existencias,
+			@Precio,
+			@Id_Proveedor
+			
+		)
+		SELECT @@IDENTITY
+
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+			DECLARE @DSC VARCHAR(MAX)
+			DECLARE @ACC CHAR(1)
+			SET @DSC = 'Incluye la información del articulo ' + RTRIM(LTRIM(@Descripcion)) + '. Id Registro: ' + CONVERT(VARCHAR,@@IDENTITY)
+			SET @ACC = 'I'
+
+			INSERT INTO Auditoria
+			(
+			Id_Usuario, Accion, Descripción, Fecha
+			)
+			SELECT
+			@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+			-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+	
+END TRY
+BEGIN CATCH
+		SELECT 0
+END CATCH
+END
+GO
+
+CREATE PROCEDURE [dbo].[USP_Listar_Articulos]
+(
+@Descripcion nvarchar(50),
+@Id_Proveedor int
+)
+AS
+BEGIN
+    SELECT 
+        A.Id_Articulo,
+        A.Descripcion,
+		A.Estado,
+        A.Existencias,
+        A.Precio,
+        P.Proveedor
+		FROM [dbo].[Articulos] A
+  INNER JOIN Proveedores P ON A.Id_Proveedor = P.Id_Proveedor
+  WHERE LTRIM(RTRIM([Descripcion])) LIKE '%' + LTRIM(RTRIM(@Descripcion)) +'%'
+		AND P.[Id_Proveedor] = CASE @Id_Proveedor WHEN 0 THEN P.[Id_Proveedor] ELSE @Id_Proveedor END
+END
+GO
+
+   CREATE PROCEDURE [dbo].[USP_Informacion_Articulos]
+(
+@Id_Articulo INT
+)
+AS BEGIN 
+
+SELECT 
+		A.[Id_Articulo],
+		A.[Descripcion],
+		A.[Estado],
+		A.[Existencias],
+		A.[Precio],
+		P.Proveedor
+  FROM [dbo].[Articulos] A
+  INNER JOIN [Proveedores] P ON P.Id_Proveedor = A.Id_Proveedor
+     WHERE A.Id_Articulo = @Id_Articulo
+END
+GO
+
+CREATE PROCEDURE [dbo].[USP_Modificar_Articulos]
+(
+@Id_Articulo int,
+@Descripcion nvarchar(50),
+@Estado char(1),
+@Existencias int,
+@Precio decimal(10,2),
+@Id_Proveedor int,
+@IdUsuario_Global int
+
+)
+AS BEGIN 
+BEGIN TRY
+SET DATEFORMAT DMY
+	IF NOT EXISTS(SELECT Id_Articulo FROM Articulos WHERE Descripcion=@Descripcion AND Id_Proveedor=@Id_Proveedor AND Id_Articulo NOT IN (@Id_Articulo))
+	BEGIN
+		UPDATE [dbo].[Articulos]
+		SET
+			   [Descripcion]=@Descripcion
+			  ,[Estado]=@Estado
+			  ,[Existencias]=@Existencias
+			  ,[Precio]=@Precio
+			  ,[Id_Proveedor]=@Id_Proveedor
+		WHERE Id_Articulo=@Id_Articulo
+		SELECT @Id_Articulo
+		-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+		DECLARE @DSC VARCHAR(MAX)
+		DECLARE @ACC CHAR(1)
+		SET @DSC = 'Actualiza la información de la Articulo de compra ' + RTRIM(LTRIM(@Descripcion)) + '. Id Registro: ' + CONVERT(VARCHAR,@Id_Articulo)
+		SET @ACC = 'A'
+
+		INSERT INTO Auditoria
+		(
+		Id_Usuario, Accion, Descripción, Fecha
+		)
+		SELECT
+		@IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)) , GETDATE()
+		-----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+	END
+	ELSE
+	BEGIN
+		SELECT -1
+	END
+END TRY
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+
+CREATE PROCEDURE [dbo].[USP_Eliminar_Articulos]
+(
+    @Id_Articulo int,
+    @IdUsuario_Global int
+)
+AS BEGIN 
+BEGIN TRY
+    -----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+    DECLARE @DSC VARCHAR(MAX)
+    DECLARE @NOMBRE VARCHAR(200)
+    DECLARE @ACC CHAR(1)
+
+    -- Obtén la descripción del artículo que estás eliminando
+    SELECT @NOMBRE = RTRIM(LTRIM(Descripcion)) 
+    FROM Articulos 
+    WHERE Id_Articulo = @Id_Articulo
+
+    -- Define la descripción de la auditoría
+    SET @DSC = 'Elimina la información del Artículo ' + RTRIM(LTRIM(@NOMBRE)) + '. Id Registro: ' + CONVERT(VARCHAR, @Id_Articulo)
+    SET @ACC = 'E' -- Acción de eliminación
+
+    -- Inserta en la tabla de auditoría
+    INSERT INTO Auditoria
+    (
+        Id_Usuario, Accion, Descripción, Fecha
+    )
+    VALUES
+    (
+        @IdUsuario_Global, @ACC, RTRIM(LTRIM(@DSC)), GETDATE()
+    )
+    -----------------------PARA EL CONTROL DE AUDITORIA DEL SISTEMA-------------------------------------------
+
+    -- Elimina el artículo
+    DELETE FROM Articulos WHERE Id_Articulo = @Id_Articulo
+
+    -- Devuelve el Id_Articulo eliminado
+    SELECT @Id_Articulo
+END TRY
+BEGIN CATCH
+    -- Si ocurre un error, devuelve 0
+    SELECT 0
+END CATCH
+END
+GO

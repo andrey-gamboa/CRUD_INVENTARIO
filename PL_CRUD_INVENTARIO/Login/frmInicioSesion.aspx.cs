@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Data;
 using DAL_CRUD_INVENTARIO.Mantenimientos;
 using BLL_CRUD_INVENTARIO.Mantenimientos;
 using System.Web.Services;

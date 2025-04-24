@@ -1109,10 +1109,6 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[USP_Listar_Articulos]
-(
-@Descripcion nvarchar(50),
-@Id_Proveedor int
-)
 AS
 BEGIN
     SELECT 
@@ -1123,9 +1119,7 @@ BEGIN
         A.Precio,
         P.Proveedor
 		FROM [dbo].[Articulos] A
-  INNER JOIN Proveedores P ON A.Id_Proveedor = P.Id_Proveedor
-  WHERE LTRIM(RTRIM([Descripcion])) LIKE '%' + LTRIM(RTRIM(@Descripcion)) +'%'
-		AND P.[Id_Proveedor] = CASE @Id_Proveedor WHEN 0 THEN P.[Id_Proveedor] ELSE @Id_Proveedor END
+  INNER JOIN Proveedores P ON A.Id_Proveedor = P.Id_Proveedor  
 END
 GO
 
@@ -1195,6 +1189,31 @@ END TRY
 BEGIN CATCH
 	SELECT 0
 END CATCH
+END
+GO
+CREATE PROCEDURE [dbo].[USP_Filtrar_Articulos]
+(
+    @Descripcion NVARCHAR(50),
+    @Proveedor INT
+)
+AS 
+BEGIN 
+    SET NOCOUNT ON; -- Evita que se devuelvan mensajes de conteo de filas
+
+    SELECT 
+        ART.[Id_Articulo],
+        ART.[Descripcion],
+        ART.[Estado],
+        ART.[Existencias],
+        ART.[Precio],
+        PRV.[Proveedor]
+    FROM 
+        [dbo].[Articulos] ART
+    INNER JOIN 
+        [dbo].[Proveedores] PRV ON PRV.Id_Proveedor = ART.Id_Proveedor
+    WHERE 
+        (LTRIM(RTRIM(ART.[Descripcion])) LIKE '%' + LTRIM(RTRIM(@Descripcion)) + '%' OR @Descripcion IS NULL OR @Descripcion = '')
+        AND (ART.[Id_Proveedor] = @Proveedor OR @Proveedor = 0)
 END
 GO
 

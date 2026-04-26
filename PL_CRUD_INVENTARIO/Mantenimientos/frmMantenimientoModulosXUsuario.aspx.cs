@@ -7,7 +7,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL_CRUD_INVENTARIO.Mantenimientos;
 using BLL_CRUD_INVENTARIO.Mantenimientos;
-using System.Web;
 
 namespace PL_CRUD_INVENTARIO.Mantenimientos
 {

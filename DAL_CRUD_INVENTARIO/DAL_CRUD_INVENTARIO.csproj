@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BD\cls_BD_DAL.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Mantenimientos\cls_Articulos_DAL.cs" />
     <Compile Include="Mantenimientos\cls_Auditoria_DAL.cs" />
     <Compile Include="Mantenimientos\cls_ModulosXUsuario_DAL.cs" />
     <Compile Include="Mantenimientos\cls_Modulos_DAL.cs" />
